@@ -1,0 +1,30 @@
+definitions:
+  services:
+    postgres:
+      image: postgres
+      variables:
+        POSTGRES_DB: 'valid_up'
+        POSTGRES_USER: 'postgres'
+        POSTGRES_PASSWORD: 'postgres'
+    redis:
+      image: redis:3.2
+    docker:
+      memory: 7168
+  steps:
+    - step: &run-tests
+        name: Run Tests
+        size: 2x
+        image: node
+        caches:
+          - node
+        script:
+          - yarn install
+          - bash wait-for-psql.sh
+          - yarn migration:run
+          - yarn test:ci
+        services:
+          - postgres
+
+pipelines:
+  default:
+    - step: *run-tests

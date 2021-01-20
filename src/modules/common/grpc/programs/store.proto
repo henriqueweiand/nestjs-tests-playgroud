@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package programs;
+
+service StoreService {
+	rpc getStoreByDocument (getStoreByDocumentInput) returns (getStoreByDocumentOutput) {}
+	rpc getStoreById (getStoreByIdInput) returns (getStoreByIdOutput) {}
+	rpc getProgramByStoreId (getStoreByIdInput) returns (getProgramByStoreIdOutput) {}
+}
+
+message getStoreByDocumentInput{
+	string storeDocument = 1;
+}
+message getStoreByDocumentOutput{
+	string id = 1;
+	string programId = 2;
+}
+
+message getStoreByIdInput {
+	string id = 1;
+}
+
+message getStoreByIdOutput{
+	string id = 1;
+	string programId = 2;
+	string name = 3;
+}
+
+message getProgramByStoreIdInput {
+	string id = 1;
+}
+
+message getProgramByStoreIdOutput {
+	string id = 1;
+	string cashPerPoint = 2;
+	int32 litersPerPoint = 3;
+}

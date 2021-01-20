@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package programs;
+
+service ProgramController{
+  rpc getId(ProgramsRequest) returns (ProgramResponse);
+  rpc getPrograms(GetProgramsRequest) returns (GetProgramsResponse);
+}
+
+message ProgramsRequest{
+  string programId = 1;
+}
+
+message ProgramResponse{
+  string id = 1;
+  string name = 2;
+  repeated Subscription subscriptions = 3;
+  bool status = 4;
+}
+
+message Subscription {
+  string name = 1;
+  repeated Route routes = 2;
+}
+
+message Route {
+  repeated string accountsPermissions = 1;
+  string route = 2;
+}
+
+message GetProgramsRequest {
+  repeated string programsId = 1;
+}
+
+message GetProgramsResponse {
+  repeated GetProgramsResponseProgram programs = 1;
+}
+
+message GetProgramsResponseProgram {
+  string id = 1;
+  string name = 2;
+  string imageUrl = 3;
+}

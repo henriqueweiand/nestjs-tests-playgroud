@@ -1,0 +1,146 @@
+syntax = "proto3";
+
+package redeem;
+
+service RedeemController {
+	rpc GetAll(GetAllRequest) returns (GetAllResponse);
+	rpc GetOne(GetOneRequest) returns (GetOneResponse);
+	rpc Create(CreateRequest) returns (CreateResponse);
+	rpc GetRedeemsByRewardIds(GetRedeemsByRewardIdsRequest) returns (GetRedeemsByRewardIdsResponse);
+	rpc GetRedeemsWithRedeemProductsByRedeemIds (GetRedeemsWithRedeemProductsByRedeemIdsRequest) returns (GetRedeemsWithRedeemProductsByRedeemIdsResponse);
+}
+
+message GetAllRequest {
+	string programId = 1;
+	string storeId = 2;
+	int32 take = 3;
+	int32 skip = 4;
+	string search = 5;
+	string status = 6;
+	string order = 7;
+}
+
+message GetAllResponse {
+	repeated GetAllResponseData data = 1;
+	int32 count = 2;
+}
+
+message GetAllResponseData {
+	string id = 1;
+	string customerId = 4;
+	string customerName = 5;
+	int32 pointsUsed = 6;
+	string employeeName = 7;
+	string status = 8;
+	string storeId = 9;
+	string programId = 10;
+	string customerCardNumber = 11;
+	string employeeId = 12;
+	string customerDocument = 13;
+	string canceledAt = 14;
+	string canceledReason = 15;
+	repeated GetAllResponseDataRedeemProduct redeemProducts = 16;
+}
+
+message GetAllResponseDataRedeemProduct {
+	string id = 1;
+	string rewardId = 4;
+	string rewardName = 5;
+	int32 rewardValue = 6;
+	string redeemId = 7;
+	int32 rewardQuantity = 8;
+	string campaignId = 9;
+	string campaignName = 10;
+}
+
+message GetOneRequest {
+	string id = 1;
+}
+
+message GetOneResponse {
+	string id = 1;
+	string customerId = 4;
+	string customerName = 5;
+	int32 pointsUsed = 6;
+	string employeeName = 7;
+	string status = 8;
+	string storeId = 9;
+	string programId = 10;
+	string customerCardNumber = 11;
+	string employeeId = 12;
+	string customerDocument = 13;
+	string canceledAt = 14;
+	string canceledReason = 15;
+	repeated GetAllResponseDataRedeemProduct redeemProducts = 16;
+}
+
+message CreateRewardsRequest {
+	string id = 1;
+	int32 quantity = 2;
+ 	string campaignId = 3;
+}
+
+message CreateRequest {
+	string customerId = 1;
+	string customerName = 2;
+	string customerCardNumber = 3;
+	string customerDocument = 4;
+	string programId = 5;
+	string storeId = 6;
+	string employeeId = 7;
+	string employeeName = 8;
+	repeated CreateRewardsRequest rewards = 9;
+}
+
+message CreateResponse {
+	string id = 1;
+	string customerId = 2;
+	string customerName = 3;
+	string pointsUsed = 4;
+	string employeeName = 5;
+	string status = 6;
+	string storeId = 7;
+	string programId = 8;
+	string customerCardNumber = 9;
+	string employeeId = 10;
+	string customerDocument = 11;
+	string canceledAt = 12;
+	string canceledReason = 13;
+	repeated GetAllResponseDataRedeemProduct redeemProducts = 14;
+}
+
+message GetRedeemsByRewardIdsRequest {
+  repeated string rewardIds = 1;
+  string programId = 2;
+  string customerId = 3;
+}
+message GetRedeemsByRewardIdsResponse {
+	repeated GetRedeemsByRewardIdsResponseData redeemedInfo = 1;
+}
+
+message GetRedeemsByRewardIdsResponseData {
+	int32 redeemedTimes = 1;
+  string lastRedeemedDate = 2;
+  string rewardId = 3;
+}
+
+message GetRedeemsWithRedeemProductsByRedeemIdsRequest {
+	repeated string ids = 1;
+}
+
+message GetRedeemsWithRedeemProductsByRedeemIdsResponse {
+	repeated GetRedeemsWithRedeemProductsByRedeemIdsResponseRedeem redeems = 1;
+}
+
+message GetRedeemsWithRedeemProductsByRedeemIdsResponseRedeem {
+	string id = 1;
+	string status = 2;
+	repeated GetRedeemsWithRedeemProductsByRedeemIdsResponseRedeemProduct redeemProducts = 3;
+}
+
+message GetRedeemsWithRedeemProductsByRedeemIdsResponseRedeemProduct {
+	string id = 1;
+	string rewardId = 2;
+	string rewardName = 3;
+	string rewardQuantity = 4;
+}

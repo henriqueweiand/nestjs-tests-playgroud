@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package customers;
+
+service PointWalletLogController {
+	rpc getCustomerStatement (getCustomerStatementInput) returns (getCustomerStatementOutput);
+}
+
+message getCustomerStatementInput {
+	string customerId = 1;
+	string storeId = 2;
+	int32 skip = 3;
+	string order = 4;
+}
+
+message getCustomerStatementOutput {
+	repeated pointWalletLogs pointWalletLogs = 1;
+}
+
+message pointWalletLogs {
+	string id = 1;
+	string createDate = 2;
+	string value = 3;
+	string type = 4;
+	PointWallet pointWallet = 5;
+	Redeem redeem = 6;
+	Sale sale = 7;
+}
+
+message PointWallet {
+	string id = 1;
+	string origin = 2;
+}
+
+message Redeem {
+	string id = 1;
+	repeated RedeemProduct redeemProducts = 2;
+}
+
+message RedeemProduct {
+	string id = 1;
+	string rewardId = 2;
+	string rewardName = 3;
+	string rewardQuantity = 4;
+}
+
+message Sale {
+	string registerSaleId = 1;
+	repeated Product products = 2;
+}
+
+message Product {
+	string id = 1;
+	string name = 2;
+}
