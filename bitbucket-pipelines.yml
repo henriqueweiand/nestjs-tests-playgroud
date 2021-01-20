@@ -3,7 +3,7 @@ definitions:
     postgres:
       image: postgres
       variables:
-        POSTGRES_DB: 'valid_up'
+        POSTGRES_DB: 'database'
         POSTGRES_USER: 'postgres'
         POSTGRES_PASSWORD: 'postgres'
     redis:
